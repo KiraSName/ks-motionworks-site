@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ks Motionworks — моушн-дизайн, відео та автоматизація After Effects</title>
+<meta name="description" content="Кирило Селіверстов, моушн-дизайнер. Ефірна графіка, заставки, інфографіка, рекламні відео, локалізація та автоматизація After Effects. Роботи й ціни.">
+<meta property="og:title" content="Ks Motionworks — моушн-дизайн і автоматизація After Effects">
+<meta property="og:description" content="Заставки, інфографіка, рекламні відео та скрипти для After Effects. Роботи й ціни.">
+<meta property="og:image" content="media/hero-reel.jpg">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230B1640'/%3E%3Crect x='6' y='7' width='5' height='18' fill='%23FFD23F'/%3E%3Crect x='13' y='7' width='13' height='18' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="preload" href="fonts/unbounded-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+
+<header class="top">
+  <a class="brand" href="#top" aria-label="Ks Motionworks">Ks Motionworks</a>
+  <nav class="nav" aria-label="Розділи">
+    <a href="#works" data-i18n="nav.works">Роботи</a>
+    <a href="#prices" data-i18n="nav.prices">Послуги й ціни</a>
+    <a href="#about" data-i18n="nav.about">Про мене</a>
+    <a href="#contact" data-i18n="nav.contact">Контакти</a>
+  </nav>
+  <div class="lang" role="group" aria-label="Мова / Language">
+    <button type="button" data-lang="uk" aria-pressed="true">UA</button>
+    <button type="button" data-lang="en" aria-pressed="false">EN</button>
+  </div>
+</header>
+
+<main id="top">
+
+<section class="hero">
+  <h1 data-i18n="hero.h1">Графіка для ефіру, реклами та соцмереж. І скрипти, які збирають її за вас.</h1>
+  <div class="hero-side">
+    <p data-i18n="hero.lead">Роблю заставки, інфографіку, анімацію логотипів і рекламні ролики. Автоматизую After Effects, щоб титри, таблиці й мапи оновлювалися з даних, а не вручну.</p>
+    <div class="cta-row">
+      <a class="btn btn-main" href="https://t.me/Kira_Nai" target="_blank" rel="noopener" data-i18n="cta.telegram">Написати в Telegram</a>
+      <a class="btn btn-ghost" href="#works" data-i18n="cta.works">Дивитися роботи</a>
+    </div>
+  </div>
+
+  <div class="monitor">
+    <video id="reel" muted loop playsinline preload="metadata" poster="media/hero-reel.jpg">
+      <source src="media/hero-reel.mp4" type="video/mp4">
+    </video>
+    <div class="lower-third" aria-hidden="true">
+      <span class="lt-bar"></span>
+      <span class="lt-plate">
+        <span class="lt-name" data-i18n="lt.name">Кирило Селіверстов</span>
+        <span class="lt-role" data-i18n="lt.role">Моушн-дизайнер, автоматизація After Effects</span>
+      </span>
+    </div>
+    <button class="reel-toggle" type="button" id="reelToggle" data-i18n="reel.pause">Пауза</button>
+  </div>
+</section>
+
+<section class="works" id="works">
+  <div class="section-head">
+    <h2 data-i18n="works.h2">Роботи</h2>
+    <p data-i18n="works.lead">Натисніть на роботу, щоб подивитися її повністю зі звуком.</p>
+  </div>
+  <div class="filters" id="filters" role="group" aria-label="Категорії"></div>
+  <div class="grid" id="grid"></div>
+</section>
+
+<section class="prices" id="prices">
+  <div class="section-head">
+    <h2 data-i18n="prices.h2">Послуги й ціни</h2>
+    <p data-i18n="prices.lead">Ціни стартові. Точну суму й термін називаю після короткого брифу або перегляду вашого проєкту.</p>
+  </div>
+  <div class="price-groups" id="priceGroups"></div>
+
+  <ul class="terms" id="terms"></ul>
+
+  <h3 class="steps-title" data-i18n="steps.h3">Як проходить замовлення</h3>
+  <ol class="steps" id="steps"></ol>
+</section>
+
+<section class="about" id="about">
+  <div class="about-photo">
+    <img src="img/kyrylo.webp" alt="Кирило Селіверстов" width="900" height="909" loading="lazy">
+  </div>
+  <div class="about-text">
+    <h2 data-i18n="about.h2">Про мене</h2>
+    <p data-i18n="about.p1">Мене звати Кирило Селіверстов, я моушн-дизайнер із Вінниці. Ks Motionworks — це назва, під якою я веду портфоліо й беру замовлення.</p>
+    <p data-i18n="about.p2">З 2023 року роблю ефірну графіку для телеканалу «ВІТА»: заставки програм, перебивки, інфографіку до новин, анімовані карти. На фрилансі працюю з бізнесом і клієнтами з Fiverr: корпоративні ролики, реклама, шаблони MOGRT, локалізація відео.</p>
+    <p data-i18n="about.p3">Окремий напрям — автоматизація After Effects. Пишу expressions і скрипти, які беруть дані з таблиці й самі збирають титри, спортивні результати, прогноз погоди чи мапу з адресами. Те, що в ефірі повторюється щодня, не має робитися руками.</p>
+    <p data-i18n="about.p4">У роботі використовую MCP-підключення: AI-асистент напряму керує After Effects і Premiere Pro. Це помітно пришвидшує виробництво, а ви отримуєте повністю керований проєкт After Effects: з контролерами, зрозумілою структурою шарів і можливістю швидко змінити текст, кольори чи дані.</p>
+    <dl class="facts">
+      <div><dt data-i18n="facts.tools">Інструменти</dt><dd>After Effects, Premiere Pro, Illustrator, Photoshop, Blender, Cinema 4D, JSX / ExtendScript, MCP</dd></div>
+      <div><dt data-i18n="facts.langs">Мови роботи</dt><dd data-i18n="facts.langs.v">Українська, англійська письмово</dd></div>
+      <div><dt data-i18n="facts.where">Де працюю</dt><dd data-i18n="facts.where.v">Вінниця, віддалено з будь-яким містом і країною</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <h2 data-i18n="contact.h2">Розкажіть, що потрібно зробити</h2>
+  <p data-i18n="contact.lead">Напишіть кілька речень про задачу, хронометраж і термін. Відповім з оцінкою вартості.</p>
+  <div class="contact-main">
+    <a class="btn btn-dark" href="https://t.me/Kira_Nai" target="_blank" rel="noopener">Telegram @Kira_Nai</a>
+    <a class="btn btn-outline-dark" href="mailto:kirillzxz4@gmail.com">kirillzxz4@gmail.com</a>
+  </div>
+  <ul class="links">
+    <li><a href="https://t.me/Ks_Motionworks" target="_blank" rel="noopener" data-i18n="links.tg">Telegram-канал із роботами</a></li>
+    <li><a href="https://www.behance.net/e772b846" target="_blank" rel="noopener">Behance</a></li>
+    <li><a href="https://youtu.be/MsTgKKxRkp8" target="_blank" rel="noopener" data-i18n="links.yt">Showreel на YouTube</a></li>
+    <li><a href="https://www.fiverr.com/kyrylo_seli" target="_blank" rel="noopener">Fiverr</a></li>
+    <li><a href="https://www.linkedin.com/in/kyrylo-seliverstov" target="_blank" rel="noopener">LinkedIn</a></li>
+    <li><a href="https://www.instagram.com/kgrafstudiaua/" target="_blank" rel="noopener">Instagram</a></li>
+  </ul>
+</section>
+
+</main>
+
+<footer class="foot">
+  <span>© <span id="year">2026</span> Ks Motionworks</span>
+  <span data-i18n="foot.note">Усі роботи на сайті виконані Кирилом Селіверстовим.</span>
+</footer>
+
+<dialog class="player" id="player" aria-labelledby="playerTitle">
+  <form method="dialog"><button class="player-close" data-i18n="player.close">Закрити</button></form>
+  <div class="player-stage" id="playerStage"></div>
+  <div class="player-meta">
+    <h3 id="playerTitle"></h3>
+    <p id="playerCtx"></p>
+  </div>
+</dialog>
+
+<script src="data/works.js"></script>
+<script src="js/site.js"></script>
+</body>
+</html>
