@@ -17,6 +17,8 @@
       'prices.h2': 'Послуги й ціни',
       'prices.lead': 'Ціни стартові. Точну суму й термін називаю після короткого брифу або перегляду вашого проєкту.',
       'steps.h3': 'Як проходить замовлення',
+      'hourly.h3': 'Погодинна робота', 'terms.h3': 'Умови співпраці',
+      'cur.note': 'Ціни в доларах — округлений орієнтир, приблизно 45 грн за $1. Точну валюту й суму фіксуємо під час погодження проєкту.',
       'about.h2': 'Про мене',
       'about.p1': 'Мене звати Кирило Селіверстов, я моушн-дизайнер із Вінниці. Ks Motionworks — це назва, під якою я веду портфоліо й беру замовлення.',
       'about.p2': 'З 2023 року роблю ефірну графіку для телеканалу «ВІТА»: заставки програм, перебивки, інфографіку до новин, анімовані карти. На фрилансі працюю з бізнесом і клієнтами з Fiverr: корпоративні ролики, реклама, шаблони MOGRT, локалізація відео.',
@@ -44,6 +46,8 @@
       'prices.h2': 'Services & prices',
       'prices.lead': 'These are starting prices. I give an exact quote and deadline after a short brief or a look at your project.',
       'steps.h3': 'How an order goes',
+      'hourly.h3': 'Hourly work', 'terms.h3': 'Terms',
+      'cur.note': 'Prices in hryvnias are the base; dollar prices are a rounded guide at about 45 UAH per $1. The exact currency and amount are fixed when we agree on the project.',
       'about.h2': 'About me',
       'about.p1': 'I’m Kyrylo Seliverstov, a motion designer based in Vinnytsia, Ukraine. Ks Motionworks is the name I run my portfolio and take orders under.',
       'about.p2': 'Since 2023 I’ve been making broadcast graphics for the Vita TV channel: show openers, bumpers, news infographics and animated maps. As a freelancer I work with businesses and Fiverr clients on corporate videos, ads, MOGRT templates and video localization.',
@@ -59,52 +63,110 @@
     }
   };
 
-  /* ——— ціни «від» (з прайсу 2026): [назва uk, назва en, грн, $, суфікс] ——— */
+  /* ——— ціни з прайсу 2026 ———
+     рядок: [назва uk, назва en, грн, $, суфікс]
+     грн/$ — число («від …») або рядок (показується як є); суфікс: 'm' = за хвилину, 'h' = за годину */
   var PRICES = [
     { uk: 'Анімація та motion graphics', en: 'Animation & motion graphics',
-      nuk: 'Для реклами, соцмереж, YouTube та ефіру.', nen: 'For ads, social media, YouTube and broadcast.',
+      nuk: 'Для реклами, соцмереж, YouTube, корпоративних та broadcast-проєктів.',
+      nen: 'For ads, social media, YouTube, corporate and broadcast projects.',
       rows: [
-        ['Анімація готового логотипу', 'Logo animation', 1500, 35],
+        ['Проста анімація готового логотипу', 'Simple animation of a ready logo', 1500, 35],
+        ['Індивідуальна 2D-анімація логотипу', 'Custom 2D logo animation', 3000, 70],
+        ['Складна / premium-анімація логотипу', 'Complex / premium logo animation', 5500, 125],
         ['Intro / Outro', 'Intro / Outro', 2500, 55],
+        ['Комплект Intro + Outro', 'Intro + Outro set', 4000, 90],
+        ['Анімований титр / Lower Third', 'Animated title / lower third', 700, 15],
+        ['Пакет із 5 титрів', 'Pack of 5 titles', 2500, 55],
         ['Анімована інфографіка', 'Animated infographic', 2500, 55],
-        ['Анімація карти або маршруту', 'Map or route animation', 2500, 55],
-        ['Motion-ролик до 30 секунд', 'Motion video up to 30 seconds', 5000, 110],
-        ['Власний шаблон After Effects', 'Custom After Effects template', 4000, 90]
-      ] },
-    { uk: 'Монтаж і реклама', en: 'Editing & ads',
-      nuk: 'Від коротких відео для соцмереж до рекламних роликів.', nen: 'From short social videos to ad spots.',
+        ['Анімація карти / маршруту', 'Map / route animation', 2500, 55],
+        ['Motion Design ролик до 15 секунд', 'Motion design video up to 15 seconds', 3000, 70],
+        ['Motion Design ролик до 30 секунд', 'Motion design video up to 30 seconds', 5000, 110],
+        ['Motion Design ролик до 60 секунд', 'Motion design video up to 60 seconds', 8000, 180],
+        ['Lottie-анімація', 'Lottie animation', 1500, 35],
+        ['Проста 3D-анімація / інтеграція 3D', 'Simple 3D animation / 3D integration', 3000, 70],
+        ['Адаптація готового шаблону After Effects', 'Adapting a ready After Effects template', 1500, 35],
+        ['Створення власного шаблону After Effects', 'Building a custom After Effects template', 4000, 90]
+      ],
+      fuk: 'У вартість входить базова анімація, збірка сцени та експорт. Складний дизайн з нуля, 3D, платні assets і додаткові формати оцінюються окремо.',
+      fen: 'The price covers basic animation, scene assembly and export. Complex design from scratch, 3D, paid assets and extra formats are quoted separately.' },
+    { uk: 'Відеомонтаж', en: 'Video editing',
+      nuk: 'Від швидкого контенту для соцмереж до рекламних роликів з активним motion design.',
+      nen: 'From quick social content to ad videos with heavy motion design.',
       rows: [
         ['Reel / Shorts / TikTok до 60 секунд', 'Reel / Shorts / TikTok up to 60 seconds', 1200, 30],
         ['Reel з активним motion design', 'Reel with heavy motion design', 2500, 55],
+        ['Рекламний ролик до 15 секунд', 'Ad video up to 15 seconds', 2000, 45],
         ['Рекламний ролик до 30 секунд', 'Ad video up to 30 seconds', 3500, 80],
-        ['Монтаж інтерв’ю або подкасту', 'Interview or podcast edit', 2500, 55],
-        ['Статичний рекламний креатив', 'Static ad creative', 700, 15]
+        ['Рекламний ролик до 60 секунд', 'Ad video up to 60 seconds', 5500, 125],
+        ['Відео 5–10 хвилин', 'Video 5–10 minutes', 2500, 55],
+        ['Відео 10–20 хвилин', 'Video 10–20 minutes', 4500, 100],
+        ['Монтаж інтерв’ю / подкасту', 'Interview / podcast edit', 2500, 55],
+        ['Чистка та базова обробка аудіо', 'Audio cleanup and basic processing', 500, 12],
+        ['Пошук музики, фото, відеоматеріалів', 'Sourcing music, photos, footage', 500, 12]
       ] },
-    { uk: 'Переклад, субтитри, AI-озвучка', en: 'Translation, subtitles, AI dubbing',
-      nuk: 'Ціна за хвилину відео.', nen: 'Price per minute of video.',
+    { uk: 'Рекламні креативи та дизайн', en: 'Ad creatives & design',
+      nuk: 'Статичні банери, сторіс і візуали для реклами.',
+      nen: 'Static banners, stories and ad visuals.',
       rows: [
-        ['Транскрибація', 'Transcription', 90, 2, 'm'],
-        ['Субтитри з таймінгом', 'Timed subtitles', 135, 3, 'm'],
-        ['AI-озвучка, один голос', 'AI voice-over, one voice', 270, 6, 'm'],
-        ['AI-озвучка із синхронізацією', 'AI voice-over synced to video', 360, 8, 'm'],
-        ['Повна локалізація відео', 'Full video localization', 540, 12, 'm']
+        ['Статичний рекламний креатив', 'Static ad creative', 700, 15],
+        ['3 варіанти креативу', '3 creative variants', 1800, 40],
+        ['Адаптація під додатковий формат', 'Adapting to an extra format', '250–400 грн', '$6–10'],
+        ['Інфографіка / data visual', 'Infographic / data visual', 1000, 25],
+        ['AI + Photoshop композиція', 'AI + Photoshop composite', 1000, 25],
+        ['AI-зображення для реклами з обробкою', 'AI image for ads with retouching', 800, 20]
       ] },
+    { uk: 'Переклад, субтитри та AI-озвучка', en: 'Translation, subtitles & AI dubbing',
+      nuk: 'Повний цикл локалізації відео: від тексту до готового синхронізованого ролика. Ціна за хвилину відео.',
+      nen: 'Full video localization: from text to a finished, synced video. Price per minute of video.',
+      rows: [
+        ['AI-озвучка, 1 голос, готовий текст', 'AI voice-over, 1 voice, ready script', 270, 6, 'm'],
+        ['AI-озвучка + синхронізація з відео', 'AI voice-over + sync to video', 360, 8, 'm'],
+        ['Складна озвучка / декілька спікерів', 'Complex voice-over / several speakers', 450, 10, 'm'],
+        ['Додатковий спікер', 'Additional speaker', '+450 грн', '+$10'],
+        ['Транскрибація', 'Transcription', 90, 2, 'm'],
+        ['Переклад / адаптація тексту', 'Translation / text adaptation', 135, 3, 'm'],
+        ['Субтитри + таймінг', 'Subtitles + timing', 135, 3, 'm'],
+        ['Повна локалізація відео', 'Full video localization', 540, 12, 'm'],
+        ['Складна багатоголосна локалізація', 'Complex multi-voice localization', 675, 15, 'm'],
+        ['Lip-sync', 'Lip-sync', 'окремий розрахунок', 'custom quote']
+      ],
+      fuk: 'Приклад: 29 хв × $10/хв = $290, плюс 7 додаткових спікерів × $10 = $70. Разом $360 без lip-sync. Платні AI-сервіси, великі обсяги voice credits, нетипова кількість перегенерацій і складний вихідний звук можуть рахуватися окремо.',
+      fen: 'Example: 29 min × $10/min = $290, plus 7 extra speakers × $10 = $70. Total $360 without lip-sync. Paid AI services, large voice-credit volumes, unusual numbers of regenerations and difficult source audio may be billed separately.' },
     { uk: 'Автоматизація After Effects', en: 'After Effects automation',
-      nuk: 'Менше ручної роботи, швидший випуск, менше помилок.', nen: 'Less manual work, faster output, fewer mistakes.',
+      nuk: 'Expressions, скрипти та production pipeline: менше ручної роботи, швидший випуск, менше помилок.',
+      nen: 'Expressions, scripts and production pipelines: less manual work, faster output, fewer mistakes.',
       rows: [
         ['Простий expression', 'Simple expression', 500, 12],
-        ['Система контролерів на expressions', 'Expression controller system', 1500, 35],
+        ['Система expressions / контролерів', 'Expression / controller system', 1500, 35],
+        ['Автоматизація існуючого AE-проєкту', 'Automating an existing AE project', 2000, 45],
+        ['Простий JSX / ExtendScript', 'Simple JSX / ExtendScript', 1500, 35],
         ['Скрипт з інтерфейсом', 'Script with a UI', 3500, 80],
         ['Автоматизація через CSV / JSON', 'Automation from CSV / JSON', 4500, 100],
+        ['Автозаміна фото, текстів, відео', 'Auto-replacing photos, text, video', 3000, 70],
+        ['Автоматична генерація композицій', 'Automatic comp generation', 4000, 90],
+        ['Автоматизація великого production pipeline', 'Automating a large production pipeline', 8000, 180],
+        ['Оптимізація існуючого шаблону', 'Optimizing an existing template', 2000, 45],
         ['Пошук і виправлення помилок у скрипті', 'Script debugging and fixes', 1000, 25],
-        ['Консультація, за годину', 'Consulting, per hour', 1000, 25, 'h']
-      ] }
+        ['Власний інструмент / панель для AE', 'Custom AE tool / panel', 8000, 180],
+        ['Технічна консультація After Effects', 'After Effects technical consulting', 1000, 25, 'h']
+      ],
+      fuk: 'Автоматизація оцінюється не за кількістю рядків коду, а за логікою системи, кількістю нестандартних випадків і обсягом ручної роботи, яку вона замінює.',
+      fen: 'Automation is priced not by lines of code but by the system’s logic, the number of edge cases and the amount of manual work it replaces.' }
+  ];
+  var HOURLY = [
+    ['Моушн', 'Motion', 700, 16], ['Монтаж', 'Editing', 600, 14],
+    ['Технічна робота в AE', 'Technical AE work', 800, 18], ['Автоматизація', 'Automation', 1000, 25]
   ];
   var TERMS = [
-    ['1 500 грн', '$35', 'Мінімальне замовлення', 'Minimum order'],
-    ['2 раунди', '2 rounds', 'невеликих правок у ціні', 'of small revisions included'],
-    ['+30%', '+30%', 'за термінове замовлення до 24 годин', 'for rush orders within 24 hours'],
-    ['Окремо', 'Extra', 'платні стоки, музика, шрифти, AI-кредити', 'paid stock, music, fonts, AI credits']
+    ['1 500 грн / $35', '1,500 UAH / $35', 'Мінімальне замовлення', 'Minimum order'],
+    ['2 раунди', '2 rounds', 'невеликих правок входять у ціну', 'of small revisions included'],
+    ['+30%', '+30%', 'терміново, до 24 годин', 'rush, within 24 hours'],
+    ['+50%', '+50%', 'робота день у день', 'same-day work'],
+    ['+20%', '+20%', 'вихідний проєкт, якщо не входить у ТЗ', 'source project, if not in the brief'],
+    ['Окремо', 'Extra', 'платні стоки, музика, шрифти, AI- і voice-кредити', 'paid stock, music, fonts, AI and voice credits'],
+    ['Від 5 проєктів', '5+ projects', 'на місяць — індивідуальний тариф', 'a month get an individual rate'],
+    ['Пакетом', 'As a package', 'великий обсяг оцінюю етапами', 'large volumes quoted in stages']
   ];
   var STEPS = [
     ['Бриф', 'Brief', 'Ви описуєте задачу й надсилаєте матеріали або приклади.', 'You describe the task and send materials or references.'],
@@ -119,9 +181,11 @@
   function t(k) { return (T[lang] && T[lang][k]) || T.uk[k] || k; }
   function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
   function money(uah, usd, suf) {
+    if (typeof uah === 'string') return lang === 'uk' ? uah : usd;
     var s = suf === 'm' ? (lang === 'uk' ? '/хв' : '/min') : suf === 'h' ? (lang === 'uk' ? '/год' : '/h') : '';
-    if (lang === 'uk') return (suf === 'h' ? '' : 'від ') + String(uah).replace(/\B(?=(\d{3})+$)/g, ' ') + ' грн' + s;
-    return (suf === 'h' ? '' : 'from ') + '$' + usd + s;
+    var from = suf === 'h' ? '' : (lang === 'uk' ? 'від ' : 'from ');
+    if (lang === 'uk') return from + String(uah).replace(/\B(?=(\d{3})+$)/g, ' ') + ' грн' + s;
+    return from + '$' + usd + s;
   }
   function dur(sec) {
     if (sec < 60) return sec + ' ' + t('sec');
@@ -195,7 +259,16 @@
         var li = el('li'); li.appendChild(el('span', null, lang === 'uk' ? r[0] : r[1]));
         li.appendChild(el('b', null, money(r[2], r[3], r[4]))); ul.appendChild(li);
       });
-      d.appendChild(ul); box.appendChild(d);
+      d.appendChild(ul);
+      if (g.fuk) d.appendChild(el('p', 'pg-note', lang === 'uk' ? g.fuk : g.fen));
+      box.appendChild(d);
+    });
+    var hb = $('#hourly'); hb.textContent = '';
+    HOURLY.forEach(function (x) {
+      var li = el('li'); li.appendChild(el('span', null, lang === 'uk' ? x[0] : x[1]));
+      li.appendChild(el('b', null, lang === 'uk' ? String(x[2]).replace(/\B(?=(\d{3})+$)/g, ' ') + ' грн' : '$' + x[3]));
+      li.appendChild(el('small', null, lang === 'uk' ? '$' + x[3] + ' / год' : String(x[2]).replace(/\B(?=(\d{3})+$)/g, ',') + ' UAH / h'));
+      hb.appendChild(li);
     });
     var tb = $('#terms'); tb.textContent = '';
     TERMS.forEach(function (x) { var li = el('li'); li.appendChild(el('b', null, lang === 'uk' ? x[0] : x[1])); li.appendChild(el('span', null, lang === 'uk' ? x[2] : x[3])); tb.appendChild(li); });
