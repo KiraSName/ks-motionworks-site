@@ -11,9 +11,9 @@
       'cta.telegram': 'Написати в Telegram', 'cta.works': 'Дивитися роботи',
       'lt.name': 'Кирило Селіверстов', 'lt.role': 'Моушн-дизайнер, автоматизація After Effects',
       'reel.pause': 'Пауза', 'reel.play': 'Відтворити',
-      'works.h2': 'Роботи', 'works.lead': 'Натисніть на роботу, щоб подивитися її повністю зі звуком.',
+      'works.h2': 'Роботи', 'works.lead': 'Натисніть на роботу, щоб подивитися її повністю.',
       'cat.all': 'Усі', 'cat.motion': 'Заставки й моушн', 'cat.infographics': 'Інфографіка й карти',
-      'cat.video': 'Відео й реклама', 'cat.automation': 'Автоматизація AE', 'cat.experiments': 'AI-експерименти',
+      'cat.video': 'Відео й реклама', 'cat.creatives': 'Рекламні креативи', 'cat.automation': 'Автоматизація AE', 'cat.experiments': 'AI-експерименти',
       'prices.h2': 'Послуги й ціни',
       'prices.lead': 'Ціни стартові. Точну суму й термін називаю після короткого брифу або перегляду вашого проєкту.',
       'steps.h3': 'Як проходить замовлення',
@@ -38,9 +38,9 @@
       'cta.telegram': 'Message me on Telegram', 'cta.works': 'See the work',
       'lt.name': 'Kyrylo Seliverstov', 'lt.role': 'Motion designer, After Effects automation',
       'reel.pause': 'Pause', 'reel.play': 'Play',
-      'works.h2': 'Work', 'works.lead': 'Click a piece to watch it in full with sound.',
+      'works.h2': 'Work', 'works.lead': 'Click a piece to see it in full.',
       'cat.all': 'All', 'cat.motion': 'Openers & motion', 'cat.infographics': 'Infographics & maps',
-      'cat.video': 'Video & ads', 'cat.automation': 'AE automation', 'cat.experiments': 'AI experiments',
+      'cat.video': 'Video & ads', 'cat.creatives': 'Ad creatives', 'cat.automation': 'AE automation', 'cat.experiments': 'AI experiments',
       'prices.h2': 'Services & prices',
       'prices.lead': 'These are starting prices. I give an exact quote and deadline after a short brief or a look at your project.',
       'steps.h3': 'How an order goes',
@@ -112,7 +112,7 @@
     ['Чернетка', 'Draft', 'Показую першу версію, ви даєте правки.', 'I show a first version and you give feedback.'],
     ['Фінал', 'Delivery', 'Отримуєте готові файли в потрібних форматах.', 'You get final files in the formats you need.']
   ];
-  var CATS = ['all', 'motion', 'infographics', 'video', 'automation', 'experiments'];
+  var CATS = ['all', 'motion', 'infographics', 'video', 'creatives', 'automation', 'experiments'];
 
   var lang = 'uk', cat = 'all';
   var $ = function (s) { return document.querySelector(s); };
@@ -144,16 +144,18 @@
   function renderGrid() {
     var grid = $('#grid'); grid.textContent = '';
     WORKS.filter(function (w) { return cat === 'all' || w.cat === cat; }).forEach(function (w) {
-      var b = el('button', 'tile' + (w.vertical ? ' is-vertical' : '')); b.type = 'button';
+      var isImg = w.type === 'image';
+      var b = el('button', 'tile' + (w.square ? ' is-square' : w.vertical ? ' is-vertical' : '')); b.type = 'button';
       var m = el('span', 'tile-media');
-      var img = el('img'); img.src = 'media/' + w.id + '/poster.jpg'; img.alt = ''; img.loading = 'lazy'; img.decoding = 'async';
-      m.appendChild(img); m.appendChild(el('span', 'tile-dur', dur(w.dur)));
+      var img = el('img'); img.src = 'media/' + w.id + (isImg ? '/poster.webp' : '/poster.jpg'); img.alt = ''; img.loading = 'lazy'; img.decoding = 'async';
+      m.appendChild(img);
+      if (!isImg) m.appendChild(el('span', 'tile-dur', dur(w.dur)));
       b.appendChild(m);
       b.appendChild(el('span', 'tile-title', w.title[lang] || w.title.uk));
       b.appendChild(el('span', 'tile-ctx', w.ctx[lang] || w.ctx.uk));
       var pv = null;
       b.addEventListener('pointerenter', function (e) {
-        if (e.pointerType !== 'mouse' || pv) return;
+        if (isImg || e.pointerType !== 'mouse' || pv) return;
         pv = el('video'); pv.muted = true; pv.loop = true; pv.playsInline = true; pv.src = 'media/' + w.id + '/preview.mp4';
         m.insertBefore(pv, m.lastChild); var p = pv.play(); if (p && p.catch) p.catch(function () {});
       });
@@ -167,9 +169,14 @@
   var player = $('#player'), stage = $('#playerStage');
   function openPlayer(w) {
     stage.textContent = '';
-    var v = el('video'); v.controls = true; v.playsInline = true; v.autoplay = true;
-    v.poster = 'media/' + w.id + '/poster.jpg'; v.src = 'media/' + w.id + '/full.mp4';
-    stage.appendChild(v);
+    if (w.type === 'image') {
+      var im = el('img'); im.src = 'media/' + w.id + '/image.webp'; im.alt = w.title[lang] || w.title.uk;
+      stage.appendChild(im);
+    } else {
+      var v = el('video'); v.controls = true; v.playsInline = true; v.autoplay = true;
+      v.poster = 'media/' + w.id + '/poster.jpg'; v.src = 'media/' + w.id + '/full.mp4';
+      stage.appendChild(v);
+    }
     $('#playerTitle').textContent = w.title[lang] || w.title.uk;
     $('#playerCtx').textContent = w.ctx[lang] || w.ctx.uk;
     if (player.showModal) player.showModal(); else player.setAttribute('open', '');
