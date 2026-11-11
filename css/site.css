@@ -28,7 +28,8 @@ p{margin:0 0 1em;max-width:68ch}
 
 /* ——— top bar ——— */
 .top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:24px;padding:14px var(--pad);background:rgba(11,22,64,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.brand{font-family:var(--display);font-weight:700;font-size:16px;text-decoration:none;white-space:nowrap}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:16px;text-decoration:none;white-space:nowrap}
+.brand img{height:26px;width:auto}
 .nav{display:flex;gap:22px;margin-left:auto}
 .nav a{text-decoration:none;color:var(--mist);font-size:15px}
 .nav a:hover{color:#fff}
