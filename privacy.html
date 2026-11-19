@@ -44,7 +44,7 @@
 
   <h2>3. Які дані обробляються</h2>
   <ul>
-    <li><b>Токени доступу</b>, які видають самі платформи через офіційний вхід (OAuth) або bot-токени. Паролі від акаунтів KS HQ не отримує й не зберігає.</li>
+    <li><b>Токени доступу</b>, які видають самі платформи через офіційний вхід (OAuth) або bot-токени. Паролі від акаунтів KS HQ не отримує й не зберігає. <b>Єдиний виняток — Bluesky:</b> там використовується App Password — окремий пароль із обмеженими правами, який власник створює й будь-коли відкликає в налаштуваннях Bluesky (Settings → App passwords). Основний пароль від акаунта Bluesky програмі не потрібен.</li>
     <li><b>Контент власника</b>: тексти, відео, зображення й розклад публікацій.</li>
     <li><b>Статистика власних акаунтів і постів</b>, яку повертають API платформ.</li>
     <li>Публічні коментарі чи імена інших людей можуть бути в статистиці, яку повертає платформа. KS HQ не будує на їх основі профілів, не продає їх, не передає третім особам і не використовує для реклами.</li>
@@ -56,7 +56,8 @@
   <h2>5. Зберігання й захист</h2>
   <ul>
     <li>Токени зберігаються лише в зашифрованому вигляді (AES-256-GCM): на комп'ютері власника (ключ шифрування — у Windows Credential Manager) і на інфраструктурі Cloudflare, яку контролює власник, — для запланованих публікацій.</li>
-    <li>Токени ніколи не показуються в інтерфейсі, не пишуться в журнали й не пересилаються нікому, крім самої платформи, якій вони належать.</li>
+    <li>Для запланованих публікацій відео й зображення тимчасово (до 8 днів, а після публікації — одразу видаляються) лежать у приватному сховищі Cloudflare R2, яким керує власник. Публічної адреси сховище не має; файл доступний лише платформі, яка його забирає, і лише на час публікації.</li>
+    <li>Токени, App Password Bluesky і вхід Google (для YouTube) ніколи не показуються в інтерфейсі, не пишуться в журнали й не пересилаються нікому, крім самої платформи, якій вони належать.</li>
     <li>Доступ до KS HQ і до даних має лише власник.</li>
     <li>Дані зберігаються, доки інструмент використовується, або до запиту на видалення.</li>
   </ul>
@@ -98,7 +99,7 @@
 
   <h2>3. What data is processed</h2>
   <ul>
-    <li><b>Access tokens</b> issued by the platforms themselves through official sign-in (OAuth), or bot tokens. KS HQ never receives or stores account passwords.</li>
+    <li><b>Access tokens</b> issued by the platforms themselves through official sign-in (OAuth), or bot tokens. KS HQ never receives or stores account passwords. <b>The only exception is Bluesky:</b> it uses an App Password — a separate password with limited rights that the owner creates and can revoke at any time in Bluesky settings (Settings → App passwords). The main Bluesky account password is never needed.</li>
     <li><b>The owner’s content</b>: captions, videos, images and the publishing schedule.</li>
     <li><b>Statistics of the owner’s accounts and posts</b> returned by the platform APIs.</li>
     <li>Public comments or names of other people may appear in statistics a platform returns. KS HQ does not profile, sell or share them, or use them for advertising.</li>
@@ -110,7 +111,8 @@
   <h2>5. Storage and security</h2>
   <ul>
     <li>Tokens are stored only in encrypted form (AES-256-GCM): on the owner’s computer (the encryption key is kept in Windows Credential Manager) and on Cloudflare infrastructure controlled by the owner, for scheduled posts.</li>
-    <li>Tokens are never shown in the interface, never written to logs and never sent anywhere except to the platform they belong to.</li>
+    <li>For scheduled posts, videos and images are kept temporarily (up to 8 days, and deleted right after publishing) in a private Cloudflare R2 bucket managed by the owner. The bucket has no public address; a file is available only to the platform that fetches it, and only while the post is being published.</li>
+    <li>Tokens, the Bluesky App Password and the Google sign-in (for YouTube) are never shown in the interface, never written to logs and never sent anywhere except to the platform they belong to.</li>
     <li>Only the owner has access to KS HQ and its data.</li>
     <li>Data is kept while the tool is in use, or until a deletion request.</li>
   </ul>
