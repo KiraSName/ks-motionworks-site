@@ -30,6 +30,7 @@
       'contact.lead': 'Напишіть кілька речень про задачу, хронометраж і термін. Відповім з оцінкою вартості.',
       'links.tg': 'Telegram-канал із роботами', 'links.yt': 'Showreel на YouTube',
       'foot.note': 'Усі роботи на сайті виконані Кирилом Селіверстовим.',
+      'foot.privacy': 'Політика конфіденційності', 'foot.terms': 'Умови використання',
       'player.close': 'Закрити', 'sec': 'с', 'min': 'хв'
     },
     en: {
@@ -59,6 +60,7 @@
       'contact.lead': 'Send a few sentences about the task, the running time and the deadline. I’ll reply with a quote.',
       'links.tg': 'Telegram channel with work', 'links.yt': 'Showreel on YouTube',
       'foot.note': 'All work on this site was made by Kyrylo Seliverstov.',
+      'foot.privacy': 'Privacy Policy', 'foot.terms': 'Terms of Service',
       'player.close': 'Close', 'sec': 's', 'min': 'min'
     }
   };
