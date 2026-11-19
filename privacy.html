@@ -55,7 +55,7 @@
 
   <h2>5. Зберігання й захист</h2>
   <ul>
-    <li>Токени зберігаються лише в зашифрованому вигляді (AES-256-GCM) на інфраструктурі Cloudflare, якою керує власник.</li>
+    <li>Токени зберігаються лише в зашифрованому вигляді (AES-256-GCM): на комп'ютері власника (ключ шифрування — у Windows Credential Manager) і на інфраструктурі Cloudflare, яку контролює власник, — для запланованих публікацій.</li>
     <li>Токени ніколи не показуються в інтерфейсі, не пишуться в журнали й не пересилаються нікому, крім самої платформи, якій вони належать.</li>
     <li>Доступ до KS HQ і до даних має лише власник.</li>
     <li>Дані зберігаються, доки інструмент використовується, або до запиту на видалення.</li>
@@ -109,7 +109,7 @@
 
   <h2>5. Storage and security</h2>
   <ul>
-    <li>Tokens are stored only in encrypted form (AES-256-GCM) on Cloudflare infrastructure controlled by the owner.</li>
+    <li>Tokens are stored only in encrypted form (AES-256-GCM): on the owner’s computer (the encryption key is kept in Windows Credential Manager) and on Cloudflare infrastructure controlled by the owner, for scheduled posts.</li>
     <li>Tokens are never shown in the interface, never written to logs and never sent anywhere except to the platform they belong to.</li>
     <li>Only the owner has access to KS HQ and its data.</li>
     <li>Data is kept while the tool is in use, or until a deletion request.</li>
