@@ -31,7 +31,7 @@
       'links.tg': 'Telegram-канал із роботами', 'links.yt': 'Showreel на YouTube',
       'foot.note': 'Усі роботи на сайті виконані Кирилом Селіверстовим.',
       'foot.privacy': 'Політика конфіденційності', 'foot.terms': 'Умови використання',
-      'player.close': 'Закрити', 'player.format': 'Формат', 'sec': 'с', 'min': 'хв'
+      'player.close': 'Закрити', 'player.format': 'Формат', 'player.share': 'Поділитися', 'player.copied': 'Посилання скопійовано', 'sec': 'с', 'min': 'хв'
     },
     en: {
       'doc.title': 'Ks Motionworks — motion design, video and After Effects automation',
@@ -61,7 +61,7 @@
       'links.tg': 'Telegram channel with work', 'links.yt': 'Showreel on YouTube',
       'foot.note': 'All work on this site was made by Kyrylo Seliverstov.',
       'foot.privacy': 'Privacy Policy', 'foot.terms': 'Terms of Service',
-      'player.close': 'Close', 'player.format': 'Format', 'sec': 's', 'min': 'min'
+      'player.close': 'Close', 'player.format': 'Format', 'player.share': 'Share', 'player.copied': 'Link copied', 'sec': 's', 'min': 'min'
     }
   };
 
@@ -189,6 +189,12 @@
     if (lang === 'uk') return from + String(uah).replace(/\B(?=(\d{3})+$)/g, ' ') + ' грн' + s;
     return from + '$' + usd + s;
   }
+  // відео без кнопки «Завантажити» і без меню правої кнопки
+  function guard(v) {
+    v.setAttribute('controlsList', 'nodownload');
+    v.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+    return v;
+  }
   function dur(sec) {
     if (sec < 60) return sec + ' ' + t('sec');
     return Math.floor(sec / 60) + ':' + ('0' + (sec % 60)).slice(-2);
@@ -222,7 +228,7 @@
       var pv = null;
       b.addEventListener('pointerenter', function (e) {
         if (isImg || e.pointerType !== 'mouse' || pv) return;
-        pv = el('video'); pv.muted = true; pv.loop = true; pv.playsInline = true; pv.src = 'media/' + w.id + '/preview.mp4';
+        pv = guard(el('video')); pv.muted = true; pv.loop = true; pv.playsInline = true; pv.src = 'media/' + w.id + '/preview.mp4';
         m.insertBefore(pv, m.lastChild); var p = pv.play(); if (p && p.catch) p.catch(function () {});
       });
       b.addEventListener('pointerleave', function () { if (pv) { pv.remove(); pv = null; } });
@@ -232,8 +238,9 @@
   }
 
   /* ——— плеєр ——— */
-  var player = $('#player'), stage = $('#playerStage');
+  var player = $('#player'), stage = $('#playerStage'), shareBtn = $('#playerShare'), current = null;
   function openPlayer(w) {
+    current = w;
     stage.textContent = '';
     if (w.type === 'image') {
       var im = el('img'); im.src = 'media/' + w.id + '/image.webp'; im.alt = w.title[lang] || w.title.uk;
@@ -244,7 +251,7 @@
       var box = el('div', 'player-video');
       var show = function (f) {
         box.textContent = '';
-        var fv = el('video'); fv.controls = true; fv.playsInline = true; fv.autoplay = true;
+        var fv = guard(el('video')); fv.controls = true; fv.playsInline = true; fv.autoplay = true;
         fv.poster = 'media/' + f.id + '/poster.jpg'; fv.src = 'media/' + f.id + '/full.mp4';
         box.appendChild(fv);
         Array.prototype.forEach.call(sw.children, function (x) { x.setAttribute('aria-pressed', String(x.dataset.id === f.id)); });
@@ -257,15 +264,46 @@
       stage.appendChild(sw); stage.appendChild(box);
       show(w.formats[0]);
     } else {
-      var v = el('video'); v.controls = true; v.playsInline = true; v.autoplay = true;
+      var v = guard(el('video')); v.controls = true; v.playsInline = true; v.autoplay = true;
       v.poster = 'media/' + w.id + '/poster.jpg'; v.src = 'media/' + w.id + '/full.mp4';
       stage.appendChild(v);
     }
     $('#playerTitle').textContent = w.title[lang] || w.title.uk;
     $('#playerCtx').textContent = w.ctx[lang] || w.ctx.uk;
-    if (player.showModal) player.showModal(); else player.setAttribute('open', '');
+    shareBtn.textContent = t('player.share');
+    try { history.replaceState(null, '', location.pathname + location.search + '#w=' + w.id); } catch (e) {}
+    if (player.showModal) { if (!player.open) player.showModal(); } else player.setAttribute('open', '');
   }
-  player.addEventListener('close', function () { stage.textContent = ''; });
+  player.addEventListener('close', function () {
+    stage.textContent = ''; current = null;
+    try { if (/^#w=/.test(location.hash)) history.replaceState(null, '', location.pathname + location.search); } catch (e) {}
+  });
+
+  /* ——— поділитися роботою: посилання ksmotionworks.com/w/<id> з прев'ю ——— */
+  function copyText(s) {
+    if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(s);
+    return new Promise(function (ok, fail) {
+      var ta = el('textarea'); ta.value = s; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0';
+      player.appendChild(ta); ta.select();
+      try { document.execCommand('copy') ? ok() : fail(); } catch (e) { fail(e); }
+      ta.remove();
+    });
+  }
+  shareBtn.addEventListener('click', function () {
+    if (!current) return;
+    var url = location.origin + '/w/' + current.id + (lang === 'en' ? '?lang=en' : '');
+    var title = current.title[lang] || current.title.uk;
+    var done = function () {
+      shareBtn.textContent = t('player.copied');
+      setTimeout(function () { shareBtn.textContent = t('player.share'); }, 2200);
+    };
+    var coarse = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+    if (navigator.share && coarse) {
+      navigator.share({ title: title + ' — Ks Motionworks', url: url }).catch(function () {});
+    } else {
+      copyText(url).then(done, function () { window.open(url, '_blank', 'noopener'); });
+    }
+  });
   player.addEventListener('click', function (e) { if (e.target === player) player.close(); });
 
   /* ——— ціни, умови, кроки ——— */
@@ -322,4 +360,12 @@
   var auto = /^(uk|ru)/i.test(navigator.language || '') ? 'uk' : 'en';
   $('#year').textContent = new Date().getFullYear();
   setLang((q && q[1]) || saved || auto);
+  guard(reel);
+
+  // посилання на роботу: /#w=<id> (на нього веде сторінка /w/<id>)
+  var wm = /[#&?]w=([\w-]+)/.exec(location.hash + location.search);
+  if (wm) {
+    var wk = WORKS.filter(function (w) { return w.id === wm[1]; })[0];
+    if (wk) { var ws = $('#works'); if (ws) ws.scrollIntoView(); openPlayer(wk); }
+  }
 })();

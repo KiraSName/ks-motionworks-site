@@ -154,6 +154,8 @@ p{margin:0 0 1em;max-width:68ch}
 .player-meta{padding:14px 18px 20px}
 .player-meta h3{font-size:20px}
 .player-meta p{color:var(--mist);margin:6px 0 0}
+.player-share{margin-top:14px;font:600 14px var(--body);padding:9px 18px;border-radius:999px;border:1px solid var(--yellow);background:var(--yellow);color:var(--ink);cursor:pointer}
+.player-share:hover{filter:brightness(1.06)}
 
 /* ——— responsive ——— */
 @media (max-width:980px){
