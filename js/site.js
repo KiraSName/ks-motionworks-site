@@ -31,7 +31,7 @@
       'links.tg': 'Telegram-канал із роботами', 'links.yt': 'Showreel на YouTube',
       'foot.note': 'Усі роботи на сайті виконані Кирилом Селіверстовим.',
       'foot.privacy': 'Політика конфіденційності', 'foot.terms': 'Умови використання',
-      'player.close': 'Закрити', 'sec': 'с', 'min': 'хв'
+      'player.close': 'Закрити', 'player.format': 'Формат', 'sec': 'с', 'min': 'хв'
     },
     en: {
       'doc.title': 'Ks Motionworks — motion design, video and After Effects automation',
@@ -61,7 +61,7 @@
       'links.tg': 'Telegram channel with work', 'links.yt': 'Showreel on YouTube',
       'foot.note': 'All work on this site was made by Kyrylo Seliverstov.',
       'foot.privacy': 'Privacy Policy', 'foot.terms': 'Terms of Service',
-      'player.close': 'Close', 'sec': 's', 'min': 'min'
+      'player.close': 'Close', 'player.format': 'Format', 'sec': 's', 'min': 'min'
     }
   };
 
@@ -238,6 +238,24 @@
     if (w.type === 'image') {
       var im = el('img'); im.src = 'media/' + w.id + '/image.webp'; im.alt = w.title[lang] || w.title.uk;
       stage.appendChild(im);
+    } else if (w.formats && w.formats.length > 1) {
+      // одна робота в кількох форматах (16:9 / 9:16): перемикач над відео
+      var sw = el('div', 'player-formats'); sw.setAttribute('role', 'group'); sw.setAttribute('aria-label', t('player.format'));
+      var box = el('div', 'player-video');
+      var show = function (f) {
+        box.textContent = '';
+        var fv = el('video'); fv.controls = true; fv.playsInline = true; fv.autoplay = true;
+        fv.poster = 'media/' + f.id + '/poster.jpg'; fv.src = 'media/' + f.id + '/full.mp4';
+        box.appendChild(fv);
+        Array.prototype.forEach.call(sw.children, function (x) { x.setAttribute('aria-pressed', String(x.dataset.id === f.id)); });
+      };
+      w.formats.forEach(function (f) {
+        var fb = el('button', null, f.label); fb.type = 'button'; fb.dataset.id = f.id;
+        fb.addEventListener('click', function () { show(f); });
+        sw.appendChild(fb);
+      });
+      stage.appendChild(sw); stage.appendChild(box);
+      show(w.formats[0]);
     } else {
       var v = el('video'); v.controls = true; v.playsInline = true; v.autoplay = true;
       v.poster = 'media/' + w.id + '/poster.jpg'; v.src = 'media/' + w.id + '/full.mp4';
