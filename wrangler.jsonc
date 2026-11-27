@@ -2,6 +2,9 @@
   // Статичний сайт Ks Motionworks на Cloudflare Workers (static assets)
   "name": "ks-motionworks-site",
   "compatibility_date": "2025-09-01",
+  // Технічна адреса *.workers.dev вимкнена: сайт відкривається лише на ksmotionworks.com
+  // (щоб Google не індексував дублікат)
+  "workers_dev": false,
   "assets": {
     "directory": ".",
     "not_found_handling": "404-page"
